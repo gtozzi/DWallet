@@ -1,7 +1,7 @@
 <?php
 
 /**
-* @file index.home.php Serving the home page
+* @file index.newfolder.php Creates a new folder
 *
 * @author Gabriele Tozzi <gabriele@tozzi.eu>
 * @date   03.03.2012
@@ -22,14 +22,12 @@
 * along with Nome-Programma.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Login if POST
-if( $_POST['email'] ) {
-    $uid = $db->login($_POST['email'], $_POST['passwd']);
-    if( $uid ) {
-        $user->login($uid, $conf['mcrypt']['prehash']($_POST['encKey']));
-        $redirect = '?do=userhome';
-    }else{
-        $smarty->assign('login_error', 'Unvalid credentials.');
-        $smarty->assign('email', $_POST['email']);
-    }
+require 'common_user.php';
+
+$tplfile = 'newfolder';
+
+// If request submitted
+if( $_POST['name'] ) {
+    $db->createFolder($_POST['name'] ? $_POST['name'] : null);
+    $redirect = '?do=userhome';
 }

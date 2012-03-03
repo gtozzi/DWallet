@@ -22,6 +22,6 @@
 * along with Nome-Programma.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-$tplfile = 'userhome';
-$smarty->assign('userinfo', $db->getUserInfo());
+require 'common_user.php';
 
+$tplfile = 'userhome';

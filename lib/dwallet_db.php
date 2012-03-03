@@ -85,5 +85,38 @@ class dwallet_db extends topiq_myum_db {
         return $this->sth->fetch();
     }
 
+    /**
+    * Creates a folder
+    *
+    * @param string name: The name of the folder
+    * @param int    pid: ID of the parent folder
+    */
+    public function createFolder($name, $pid=null) {
+        $q = '
+            INSERT INTO `folders` (`owner`,`parent`,`name`)
+            VALUES (?,?,?)
+        ';
+        $p = array($this->_user->getUid(), $pid, $name);
+        $this->__run($q,$p);
+    }
+
+    /**
+    * Creates a password
+    *
+    * @param string username
+    * @param string url
+    * @param string password, encrypted
+    * @param string note
+    * @param int    fid: ID of the folder
+    */
+    public function createPassword($username, $url, $password, $note, $fid=null) {
+        $q = '
+            INSERT INTO `passwords` (`owner`,`username`,`url`,`password`,`note`,`folder`)
+            VALUES (?,?,?,?,?,?)
+        ';
+        $p = array($this->_user->getUid(), $username, $url, $password, $note, $fid);
+        $this->__run($q,$p);
+    }
+
 }
 ?>

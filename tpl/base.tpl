@@ -15,7 +15,7 @@
     -->
 </head>
 <body {{block name='bodyattrs'}}{{/block}}>
-{{block name='content'}}
+{{block name='body'}}
 {{/block}}
 </body>
 

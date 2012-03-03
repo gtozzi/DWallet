@@ -53,4 +53,12 @@ $conf['paths'] = array(
     'img'      => 'media/img',
 );
 
+//Encryption settings
+$conf['mcrypt'] = array(
+    'algorithm' => MCRYPT_RIJNDAEL_128,
+    'IV'        => 'z!yi9bW¦ydaEr8rh',
+    'mode'      => MCRYPT_MODE_CFB,
+    'prehash'   => md5,
+);
+
 ?>
