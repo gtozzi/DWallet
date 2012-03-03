@@ -26,9 +26,6 @@ require 'common_user.php';
 
 $tplfile = 'modpassword';
 
-// Shortcut
-$mc = & $conf['mcrypt'];
-
 // Assign unlock
 $unlock = (bool)$_GET['unlock'];
 $smarty->assign('unlock', $unlock);
@@ -39,7 +36,11 @@ if( $_GET['password'] ) {
     $smarty->assign('pid', $pid);
 
     $p = $db->getPassword($pid);
-    $pwd = mcrypt_encrypt($mc['algorithm'], $user->getKeyPwd(), base64_decode($p['password']), $mc['mode'], $mc['IV']);
+    try{
+        $pwd = $encoder->decrypt($p['password'],$user->getKeyPwd(),$p['iv']);
+    }catch(DecriptionException $e) {
+        $smarty->assign('decrypterror', true);
+    }
 
     $smarty->assign('name', $p['name']);
     $smarty->assign('username', $p['username']);
@@ -58,11 +59,13 @@ if( $_POST['name'] ) {
         $smarty->assign('url', $_POST['url']);
         $smarty->assign('note', $_POST['note']);
     }else{
+        list($pwd, $iv) = $encoder->encrypt($_POST['password1'],$user->getKeyPwd());
         $db->createPassword(
             $_POST['name'],
             $_POST['username'] ? $_POST['username'] : null,
             $_POST['url'] ? $_POST['url'] : null,
-            $_POST['password1'] ? base64_encode(mcrypt_encrypt($mc['algorithm'], $user->getKeyPwd(), $_POST['password1'], $mc['mode'], $mc['IV'])) : null,
+            $_POST['password1'] ? $pwd : null,
+            $_POST['password1'] ? $iv : null,
             $_POST['note'] ? $_POST['note'] : null,
             $folder
         );

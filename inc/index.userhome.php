@@ -28,4 +28,13 @@ $tplfile = 'userhome';
 
 // Gets folders & passwords in the current folder
 $smarty->assign('folders', $db->getFolders($folder));
-$smarty->assign('passwords', $db->getPasswords($folder));
+$passwords = $db->getPasswords($folder);
+foreach( $passwords as & $p )
+    try{
+        $encoder->decrypt($p['password'],$user->getKeyPwd(),$p['iv']);
+        $p['readable'] = true;
+    }catch(DecriptionException $e) {
+        $p['readable'] = false;
+    }
+unlink($p);
+$smarty->assign('passwords', $passwords);

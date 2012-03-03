@@ -17,7 +17,7 @@
 {{/foreach}}
 {{foreach $passwords as $p}}
     <article>
-        <img alt="key" src="media/icons/key.png"/>
+        <img alt="key" src="media/icons/{{if $p['readable']}}key{{else}}stop{{/if}}.png"/>
         <a href="?do=modpassword&amp;folder={{$folder}}&amp;password={{$p['id']}}">{{$p['name']}}</a>
     </atricle>
 {{/foreach}}

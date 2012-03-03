@@ -27,6 +27,12 @@ if( ! $user->isAuthenticated() )
 
 $smarty->assign('userinfo', $db->getUserInfo());
 
+// Init encoder
+$encoder = new dwallet_encoder(
+    $conf['mcrypt']['algorithm'],
+    $conf['mcrypt']['mode']
+);
+
 // Build path
 $lastfolder = (int)$_GET['folder'];
 $path = array();

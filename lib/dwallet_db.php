@@ -106,16 +106,20 @@ class dwallet_db extends topiq_myum_db {
     * @param string name
     * @param string username
     * @param string url
-    * @param string password, encrypted
+    * @param string password, encrypted and base64 encoded
+    * @param string initialization vector, base64 encoded
     * @param string note
     * @param int    fid: ID of the folder
     */
-    public function createPassword($name, $username=null, $url=null, $password=null, $note=null, $fid=null) {
+    public function createPassword($name, $username=null, $url=null,
+            $password=null, $iv=null, $note=null, $fid=null) {
         $q = '
-            INSERT INTO `passwords` (`owner`,`name`,`username`,`url`,`password`,`note`,`folder`)
-            VALUES (?,?,?,?,?,?,?)
+            INSERT INTO `passwords` (`owner`,`name`,`username`,`url`,`password`,
+                    `iv`,`note`,`folder`)
+            VALUES (?,?,?,?,?,?,?,?)
         ';
-        $p = array($this->_user->getUid(), $name, $username, $url, $password, $note, $fid);
+        $p = array($this->_user->getUid(), $name, $username, $url, $password,
+                $iv, $note, $fid);
         $this->__run($q,$p);
     }
 
@@ -146,7 +150,7 @@ class dwallet_db extends topiq_myum_db {
     public function getPasswords($fid=null) {
         $op = $fid===null ? 'IS' : '=';
         $q = "
-            SELECT `id`, `name`
+            SELECT `id`, `name`, `password`, `iv`
             FROM  `passwords`
             WHERE `folder` $op ?
             ORDER BY `name`
@@ -181,7 +185,7 @@ class dwallet_db extends topiq_myum_db {
     */
     public function getPassword($pid) {
         $q = "
-            SELECT `id`, `folder`, `name`, `username`, `url`, `password`, `note`
+            SELECT `id`, `folder`, `name`, `username`, `url`, `password`, `iv`, `note`
             FROM  `passwords`
             WHERE `id` = ?
         ";
@@ -192,4 +196,3 @@ class dwallet_db extends topiq_myum_db {
     }
 
 }
-?>

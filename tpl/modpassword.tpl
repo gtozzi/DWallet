@@ -23,17 +23,19 @@
                 <label for="url">Url:</label>
                 <input type="text" name="url" id="url" maxlength="255" value="{{$url}}"/>
             </p>
-            <p>
-                <label for="password1">Password:</label>
-                <input type="{{if $unlock}}text{{else}}password{{/if}}" name="password1" id="password1" maxlength="255" value="{{$password1}}"/>
-                <a href="?do=modpassword&amp;folder={{$folder}}&amp;password={{$pid}}&amp;unlock={{! $unlock}}">
-                    <img alt="{{if ! $unlock}}open {{/if}}lock" src="media/icons/lock{{if ! $unlock}}_open{{/if}}.png"/>
-                </a>
-            </p>
-            <p>
-                <label for="password2">Confirm Password:</label>
-                <input type="{{if $unlock}}text{{else}}password{{/if}}" name="password2" id="password2" maxlength="255" value="{{$password2}}"/>
-            </p>
+            {{if ! $decrypterror }}
+                <p>
+                    <label for="password1">Password:</label>
+                    <input type="{{if $unlock}}text{{else}}password{{/if}}" name="password1" id="password1" maxlength="255" value="{{$password1}}"/>
+                    <a href="?do=modpassword&amp;folder={{$folder}}&amp;password={{$pid}}&amp;unlock={{! $unlock}}">
+                        <img alt="{{if ! $unlock}}open {{/if}}lock" src="media/icons/lock{{if ! $unlock}}_open{{/if}}.png"/>
+                    </a>
+                </p>
+                <p>
+                    <label for="password2">Confirm Password:</label>
+                    <input type="{{if $unlock}}text{{else}}password{{/if}}" name="password2" id="password2" maxlength="255" value="{{$password2}}"/>
+                </p>
+            {{/if}}
             <p>
                 <label for="note">Note:</label>
                 <textarea name="note" id="note" rows="4" cols="50" value="{{$note}}">{{$note}}</textarea>

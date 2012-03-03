@@ -55,10 +55,7 @@ $conf['paths'] = array(
 
 //Encryption settings
 $conf['mcrypt'] = array(
-    'algorithm' => MCRYPT_RIJNDAEL_128,
-    'IV'        => 'z!yi9bW¦ydaEr8rh',
+    'algorithm' => MCRYPT_RIJNDAEL_256,
     'mode'      => MCRYPT_MODE_CFB,
-    'prehash'   => md5,
+    'prehash'   => function($p) { return hash('SHA256', $p, true); }, 
 );
-
-?>

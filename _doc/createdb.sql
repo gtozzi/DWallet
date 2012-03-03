@@ -57,6 +57,7 @@ CREATE  TABLE IF NOT EXISTS `dwallet`.`passwords` (
   `username` VARCHAR(255) NULL ,
   `url` VARCHAR(255) NULL ,
   `password` TEXT NULL ,
+  `iv` VARCHAR(255) NULL COMMENT 'Inizialization Vector' ,
   `note` TEXT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_passwords_users` (`owner` ASC) ,
