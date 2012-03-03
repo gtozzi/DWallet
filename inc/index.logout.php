@@ -1,7 +1,7 @@
 <?php
 
 /**
-* @file index.userhome.php Serving user home area
+* @file index.logout.php Logs out an user
 *
 * @author Gabriele Tozzi <gabriele@tozzi.eu>
 * @date   03.03.2012
@@ -22,6 +22,5 @@
 * along with Nome-Programma.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-$tplfile = 'userhome';
-$smarty->assign('userinfo', $db->getUserInfo());
-
+$user->logout();
+$redirect = '?do=home';

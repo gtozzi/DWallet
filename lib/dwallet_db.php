@@ -74,5 +74,16 @@ class dwallet_db extends topiq_myum_db {
             return false;
     }
 
+    /**
+    * Returns info about actual user
+    */
+    public function getUserInfo() {
+        $q = 'SELECT `email` FROM `users` WHERE `id` = ?';
+        $p = array($this->_user->getUid());
+
+        $this->__run($q,$p);
+        return $this->sth->fetch();
+    }
+
 }
 ?>
