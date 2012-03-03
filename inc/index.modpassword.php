@@ -29,6 +29,10 @@ $tplfile = 'modpassword';
 // Shortcut
 $mc = & $conf['mcrypt'];
 
+// Assign unlock
+$unlock = (bool)$_GET['unlock'];
+$smarty->assign('unlock', $unlock);
+
 // If mod
 if( $_GET['password'] ) {
     $pid = (int)$_GET['password'];

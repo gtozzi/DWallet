@@ -11,11 +11,13 @@
 {{block name='content'}}
 {{foreach $folders as $f}}
     <article>
+        <img alt="folder" src="media/icons/folder.png"/>
         <a href="?do={{$page}}&amp;folder={{$f['id']}}">{{$f['name']}}</a>
     </atricle>
 {{/foreach}}
 {{foreach $passwords as $p}}
     <article>
+        <img alt="key" src="media/icons/key.png"/>
         <a href="?do=modpassword&amp;folder={{$folder}}&amp;password={{$p['id']}}">{{$p['name']}}</a>
     </atricle>
 {{/foreach}}

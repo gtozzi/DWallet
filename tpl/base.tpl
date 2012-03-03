@@ -9,6 +9,8 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="media/css/base.css" type="text/css" media="screen" />
 
+    <script type="text/javascript" src="media/js/jquery.js"></script>
+
     {{block name='head'}}{{/block}}
     <!-- Debug output:
         {{$debug}}

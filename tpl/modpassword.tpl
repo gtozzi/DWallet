@@ -10,7 +10,7 @@
         Create a new password
     {{/if}}</h1>
     <section>
-        <form method="post" action="?do=modpassword&amp;folder={{$folder}}">
+        <form method="post" action="?do=modpassword&amp;folder={{$folder}}&amp;password={{$pid}}">
             <p>
                 <label for="name">Name:</label>
                 <input type="text" name="name" id="name" size="25" maxlength="45" required value="{{$name}}"/>
@@ -25,11 +25,14 @@
             </p>
             <p>
                 <label for="password1">Password:</label>
-                <input type="password" name="password1" id="password1" maxlength="255" value="{{$password1}}"/>
+                <input type="{{if $unlock}}text{{else}}password{{/if}}" name="password1" id="password1" maxlength="255" value="{{$password1}}"/>
+                <a href="?do=modpassword&amp;folder={{$folder}}&amp;password={{$pid}}&amp;unlock={{! $unlock}}">
+                    <img alt="{{if ! $unlock}}open {{/if}}lock" src="media/icons/lock{{if ! $unlock}}_open{{/if}}.png"/>
+                </a>
             </p>
             <p>
                 <label for="password2">Confirm Password:</label>
-                <input type="password" name="password2" id="password2" maxlength="255" value="{{$password2}}"/>
+                <input type="{{if $unlock}}text{{else}}password{{/if}}" name="password2" id="password2" maxlength="255" value="{{$password2}}"/>
             </p>
             <p>
                 <label for="note">Note:</label>
