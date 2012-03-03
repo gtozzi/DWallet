@@ -4,12 +4,16 @@
 {{/block}}
 {{block name='content'}}
 <div>
-    <h1>Create a new password</h1>
+    <h1>{{if $pid}}
+        Modify password
+    {{else}}
+        Create a new password
+    {{/if}}</h1>
     <section>
-        <form method="post" action="?do=newpassword&amp;folder={{$folder}}">
+        <form method="post" action="?do=modpassword&amp;folder={{$folder}}">
             <p>
                 <label for="name">Name:</label>
-                <input type="text" name="name" id="name" size="25" maxlength="45" required/>
+                <input type="text" name="name" id="name" size="25" maxlength="45" required value="{{$name}}"/>
             </p>
             <p>
                 <label for="username">Username:</label>
@@ -21,11 +25,11 @@
             </p>
             <p>
                 <label for="password1">Password:</label>
-                <input type="password" name="password1" id="password1" maxlength="255"/>
+                <input type="password" name="password1" id="password1" maxlength="255" value="{{$password1}}"/>
             </p>
             <p>
                 <label for="password2">Confirm Password:</label>
-                <input type="password" name="password2" id="password2" maxlength="255"/>
+                <input type="password" name="password2" id="password2" maxlength="255" value="{{$password2}}"/>
             </p>
             <p>
                 <label for="note">Note:</label>

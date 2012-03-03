@@ -24,16 +24,32 @@
 
 require 'common_user.php';
 
-$tplfile = 'newpassword';
+$tplfile = 'modpassword';
 
 // Shortcut
 $mc = & $conf['mcrypt'];
 
+// If mod
+if( $_GET['password'] ) {
+    $pid = (int)$_GET['password'];
+    $smarty->assign('pid', $pid);
+
+    $p = $db->getPassword($pid);
+    $pwd = mcrypt_encrypt($mc['algorithm'], $user->getKeyPwd(), base64_decode($p['password']), $mc['mode'], $mc['IV']);
+
+    $smarty->assign('name', $p['name']);
+    $smarty->assign('username', $p['username']);
+    $smarty->assign('password1', $pwd);
+    $smarty->assign('password2', $pwd);
+    $smarty->assign('url', $p['url']);
+    $smarty->assign('note', $p['note']);
+}
 // If request submitted
 if( $_POST['name'] ) {
     // Validate
     if( $_POST['password1'] !== $_POST['password2'] ) {
         $smarty->assign('validation_error', 'Passwords doesn\'t match.');
+        $smarty->assign('name', $_POST['name']);
         $smarty->assign('username', $_POST['username']);
         $smarty->assign('url', $_POST['url']);
         $smarty->assign('note', $_POST['note']);

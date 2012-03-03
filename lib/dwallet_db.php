@@ -174,5 +174,22 @@ class dwallet_db extends topiq_myum_db {
         return $this->sth->fetch();
     }
 
+    /**
+    * Returns info about a given password
+    *
+    * @param int    pid: ID of the password
+    */
+    public function getPassword($pid) {
+        $q = "
+            SELECT `id`, `folder`, `name`, `username`, `url`, `password`, `note`
+            FROM  `passwords`
+            WHERE `id` = ?
+        ";
+        $p = array($pid);
+
+        $this->__run($q,$p);
+        return $this->sth->fetch();
+    }
+
 }
 ?>

@@ -5,7 +5,7 @@
 {{block name='nav'}}
     <ul>
         <li><button type="button" onclick="window.location='?do=newfolder&folder={{$folder}}'">New folder</button></li>
-        <li><button type="button" onclick="window.location='?do=newpassword&folder={{$folder}}'">New password</button></li>
+        <li><button type="button" onclick="window.location='?do=modpassword&folder={{$folder}}'">New password</button></li>
     </ul>
 {{/block}}
 {{block name='content'}}
@@ -16,7 +16,7 @@
 {{/foreach}}
 {{foreach $passwords as $p}}
     <article>
-        {{$p['name']}}
+        <a href="?do=modpassword&amp;folder={{$folder}}&amp;password={{$p['id']}}">{{$p['name']}}</a>
     </atricle>
 {{/foreach}}
 {{/block}}
