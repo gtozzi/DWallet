@@ -31,6 +31,7 @@ $unlock = (bool)$_GET['unlock'];
 $smarty->assign('unlock', $unlock);
 
 // If mod
+$decrypterror = false;
 if( $_GET['password'] ) {
     $pid = (int)$_GET['password'];
     $smarty->assign('pid', $pid);
@@ -39,8 +40,9 @@ if( $_GET['password'] ) {
     try{
         $pwd = $encoder->decrypt($p['password'],$user->getKeyPwd(),$p['iv']);
     }catch(DecriptionException $e) {
-        $smarty->assign('decrypterror', true);
+        $decrypterror = true;
     }
+    $smarty->assign('decrypterror', $decrypterror);
 
     $smarty->assign('name', $p['name']);
     $smarty->assign('username', $p['username']);
@@ -50,7 +52,7 @@ if( $_GET['password'] ) {
     $smarty->assign('note', $p['note']);
 }
 // If request submitted
-if( $_POST['name'] ) {
+if( ! $decrypterror && $_POST['name'] ) {
     // Validate
     if( $_POST['password1'] !== $_POST['password2'] ) {
         $smarty->assign('validation_error', 'Passwords doesn\'t match.');
@@ -60,15 +62,27 @@ if( $_POST['name'] ) {
         $smarty->assign('note', $_POST['note']);
     }else{
         list($pwd, $iv) = $encoder->encrypt($_POST['password1'],$user->getKeyPwd());
-        $db->createPassword(
-            $_POST['name'],
-            $_POST['username'] ? $_POST['username'] : null,
-            $_POST['url'] ? $_POST['url'] : null,
-            $_POST['password1'] ? $pwd : null,
-            $_POST['password1'] ? $iv : null,
-            $_POST['note'] ? $_POST['note'] : null,
-            $folder
-        );
+        if( $_GET['password'] )
+            $db->modifyPassword(
+                (int)$_GET['password'],
+                $_POST['name'],
+                $_POST['username'] ? $_POST['username'] : null,
+                $_POST['url'] ? $_POST['url'] : null,
+                $_POST['password1'] ? $pwd : null,
+                $_POST['password1'] ? $iv : null,
+                $_POST['note'] ? $_POST['note'] : null,
+                $folder
+            );
+        else
+            $db->createPassword(
+                $_POST['name'],
+                $_POST['username'] ? $_POST['username'] : null,
+                $_POST['url'] ? $_POST['url'] : null,
+                $_POST['password1'] ? $pwd : null,
+                $_POST['password1'] ? $iv : null,
+                $_POST['note'] ? $_POST['note'] : null,
+                $folder
+            );
         $redirect = "?do=userhome&folder=$folder";
     }
 }

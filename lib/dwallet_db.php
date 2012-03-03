@@ -124,6 +124,38 @@ class dwallet_db extends topiq_myum_db {
     }
 
     /**
+    * Modify a password
+    *
+    * @param int    pid: The ID of the password to mod
+    * @param string name
+    * @param string username
+    * @param string url
+    * @param string password, encrypted and base64 encoded
+    * @param string initialization vector, base64 encoded
+    * @param string note
+    * @param int    fid: ID of the folder
+    */
+    public function modifyPassword($pid, $name, $username=null, $url=null,
+            $password=null, $iv=null, $note=null, $fid=null) {
+        $q = '
+            UPDATE `passwords`
+            SET
+                `owner` = ?,
+                `name` = ?,
+                `username` = ?,
+                `url` = ?,
+                `password` = ?,
+                `iv` = ?,
+                `note` = ?,
+                `folder` = ?
+            WHERE `id` = ?
+        ';
+        $p = array($this->_user->getUid(), $name, $username, $url, $password,
+                $iv, $note, $fid, $pid);
+        $this->__run($q,$p);
+    }
+
+    /**
     * Lists folders in a given folder
     *
     * @param int    pid: ID of the parent folder

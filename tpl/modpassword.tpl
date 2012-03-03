@@ -4,7 +4,9 @@
 {{/block}}
 {{block name='content'}}
 <div>
-    <h1>{{if $pid}}
+    <h1>{{if $decrypterror}}
+        Show password
+    {{elseif $pid}}
         Modify password
     {{else}}
         Create a new password
@@ -41,9 +43,14 @@
                 <textarea name="note" id="note" rows="4" cols="50" value="{{$note}}">{{$note}}</textarea>
             </p>
             {{if $validation_error}}<p>{{$validation_error}}</p>{{/if}}
-            <p>
-                <input type="submit" name="submit" id="submit" value="Submit"/>
-            </p>
+            {{if $decrypterror }}
+                <p>The decryption Key you provided couldn't decode this password.</p>
+            {{/if}}
+            {{if ! $decrypterror }}
+                <p>
+                    <input type="submit" name="submit" id="submit" value="Submit"/>
+                </p>
+            {{/if}}
         </form>
     </section>
 </div>
