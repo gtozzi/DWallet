@@ -14,7 +14,7 @@ require_once 'config.php';
 require_once "{$conf['paths']['lib']}/topiq_myum_db.php";
 require_once "{$conf['paths']['lib']}/dwallet_db.php";
 require_once "{$conf['paths']['lib']}/dwallet_user.php";
-require_once "{$conf['paths']['lib']}/smarty/Smarty.class.php";
+require_once "{$conf['paths']['lib']}/smarty/libs/Smarty.class.php";
 
 // Disables the session garbage collection
 ini_set('session.gc_probability', 0);
