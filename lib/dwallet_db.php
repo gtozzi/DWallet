@@ -49,5 +49,30 @@ class dwallet_db extends topiq_myum_db {
         parent::__construct($db, $uname, $pass, $host, $dri, $lelog, $elog);
     }
 
+    /**
+    * Authenticates an user
+    *
+    * @param string    email: User's email
+    * @param string password: User's password
+    *
+    * @return int: User ID, False on failure
+    */
+    public function login( $email, $pwd ) {
+        $q = '
+            SELECT `id`
+            FROM `users`
+            WHERE `email` = ?
+                AND `password` = SHA1(?)
+        ';
+        $p = array($email, $pwd);
+
+        $this->__run($q,$p);
+        $ret = $this->sth->fetch();
+        if($ret)
+            return (int)$ret['id'];
+        else
+            return false;
+    }
+
 }
 ?>

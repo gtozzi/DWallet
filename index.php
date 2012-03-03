@@ -28,7 +28,7 @@ $timecounter = microtime(true);
 ob_start();
 
 require_once 'config.php';
-//require_once "{$conf['paths']['lib']}/utils.php";
+require_once "{$conf['paths']['lib']}/utils.php";
 require_once "{$conf['paths']['lib']}/topiq_myum_db.php";
 require_once "{$conf['paths']['lib']}/dwallet_db.php";
 require_once "{$conf['paths']['lib']}/dwallet_user.php";
@@ -99,7 +99,7 @@ else
     if( $user->isAuthenticated() )
         $page = 'userhome';
     else
-        $page = 'default';
+        $page = 'home';
 
 $smarty->assign('page', $page);
 

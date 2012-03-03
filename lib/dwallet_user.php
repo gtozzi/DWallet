@@ -27,7 +27,7 @@ class dwallet_user
     /** User ID */
     private $_uid;
     /** Encryption password */
-    private $_encPwd;
+    private $_encKey;
 
     public function __construct() {
         $this->logout();
@@ -38,19 +38,19 @@ class dwallet_user
         return (string)$this->_uid;
     }
 
-    public function login($uid, $encPwd)
+    public function login($uid, $encKey)
     {
         $this->_uid = $uid;
-        $this->_encPwd = $encpwd;
+        $this->_encKey = $encKey;
     }
 
     public function getUid()
     {
         return $this->_uid;
     }
-    public function getEncPwd()
+    public function getKeyPwd()
     {
-        return $this->_encPwd;
+        return $this->_encKey;
     }
 
     public function isAuthenticated()
@@ -61,7 +61,7 @@ class dwallet_user
     public function logout()
     {
         $this->_uid = null;
-        $this->_encPwd = null;
+        $this->_encKey = null;
     }
 
 }
