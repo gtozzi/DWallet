@@ -1,0 +1,6 @@
+*
+!.gitignore
+!tpl
+tpl/*
+!tpl/.placeholder
+
