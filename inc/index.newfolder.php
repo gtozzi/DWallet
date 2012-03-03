@@ -28,6 +28,6 @@ $tplfile = 'newfolder';
 
 // If request submitted
 if( $_POST['name'] ) {
-    $db->createFolder($_POST['name'] ? $_POST['name'] : null);
-    $redirect = '?do=userhome';
+    $db->createFolder($_POST['name'] ? $_POST['name'] : null, $folder);
+    $redirect = "?do=userhome&folder=$folder";
 }

@@ -6,8 +6,11 @@
 <div>
     <h1>Create a new password</h1>
     <section>
-        <form method="post" action="?do=newpassword">
-            <input type="hidden" name="newpwd" value="1"/>
+        <form method="post" action="?do=newpassword&amp;folder={{$folder}}">
+            <p>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" size="25" maxlength="45" required/>
+            </p>
             <p>
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username" maxlength="255" value="{{$username}}"/>

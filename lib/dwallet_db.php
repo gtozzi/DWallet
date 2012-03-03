@@ -103,19 +103,75 @@ class dwallet_db extends topiq_myum_db {
     /**
     * Creates a password
     *
+    * @param string name
     * @param string username
     * @param string url
     * @param string password, encrypted
     * @param string note
     * @param int    fid: ID of the folder
     */
-    public function createPassword($username, $url, $password, $note, $fid=null) {
+    public function createPassword($name, $username=null, $url=null, $password=null, $note=null, $fid=null) {
         $q = '
-            INSERT INTO `passwords` (`owner`,`username`,`url`,`password`,`note`,`folder`)
-            VALUES (?,?,?,?,?,?)
+            INSERT INTO `passwords` (`owner`,`name`,`username`,`url`,`password`,`note`,`folder`)
+            VALUES (?,?,?,?,?,?,?)
         ';
-        $p = array($this->_user->getUid(), $username, $url, $password, $note, $fid);
+        $p = array($this->_user->getUid(), $name, $username, $url, $password, $note, $fid);
         $this->__run($q,$p);
+    }
+
+    /**
+    * Lists folders in a given folder
+    *
+    * @param int    pid: ID of the parent folder
+    */
+    public function getFolders($pid=null) {
+        $op = $pid===null ? 'IS' : '=';
+        $q = "
+            SELECT `id`, `name`
+            FROM  `folders`
+            WHERE `parent` $op ?
+            ORDER BY `name`
+        ";
+        $p = array($pid);
+
+        $this->__run($q,$p);
+        return $this->sth->fetchAll();
+    }
+
+    /**
+    * Lists passwords in a given folder
+    *
+    * @param int    fid: ID of the folder
+    */
+    public function getPasswords($fid=null) {
+        $op = $fid===null ? 'IS' : '=';
+        $q = "
+            SELECT `id`, `name`
+            FROM  `passwords`
+            WHERE `folder` $op ?
+            ORDER BY `name`
+        ";
+        $p = array($fid);
+
+        $this->__run($q,$p);
+        return $this->sth->fetchAll();
+    }
+
+    /**
+    * Returns info about a given folder
+    *
+    * @param int    fid: ID of the folder
+    */
+    public function getFolder($fid) {
+        $q = "
+            SELECT `id`, `name`, `parent`
+            FROM  `folders`
+            WHERE `id` = ?
+        ";
+        $p = array($fid);
+
+        $this->__run($q,$p);
+        return $this->sth->fetch();
     }
 
 }

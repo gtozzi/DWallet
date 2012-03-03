@@ -30,7 +30,7 @@ $tplfile = 'newpassword';
 $mc = & $conf['mcrypt'];
 
 // If request submitted
-if( $_POST['newpwd'] ) {
+if( $_POST['name'] ) {
     // Validate
     if( $_POST['password1'] !== $_POST['password2'] ) {
         $smarty->assign('validation_error', 'Passwords doesn\'t match.');
@@ -39,11 +39,13 @@ if( $_POST['newpwd'] ) {
         $smarty->assign('note', $_POST['note']);
     }else{
         $db->createPassword(
+            $_POST['name'],
             $_POST['username'] ? $_POST['username'] : null,
             $_POST['url'] ? $_POST['url'] : null,
             $_POST['password1'] ? base64_encode(mcrypt_encrypt($mc['algorithm'], $user->getKeyPwd(), $_POST['password1'], $mc['mode'], $mc['IV'])) : null,
-            $_POST['note'] ? $_POST['note'] : null
+            $_POST['note'] ? $_POST['note'] : null,
+            $folder
         );
-        $redirect = '?do=userhome';
+        $redirect = "?do=userhome&folder=$folder";
     }
 }

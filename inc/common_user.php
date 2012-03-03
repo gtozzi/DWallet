@@ -26,3 +26,18 @@ if( ! $user->isAuthenticated() )
     throw new RuntimeException('Unvalid user!');
 
 $smarty->assign('userinfo', $db->getUserInfo());
+
+// Build path
+$lastfolder = (int)$_GET['folder'];
+$path = array();
+while( $lastfolder ) {
+    $f = $db->getFolder($lastfolder);
+    $path[] = $f;
+    $lastfolder = $f['parent'];
+}
+$path = array_reverse($path);
+$smarty->assign('path', $path);
+
+// Store current folder
+$folder = (int)$_GET['folder'] ? $_GET['folder'] : null;
+$smarty->assign('folder', $folder);

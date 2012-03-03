@@ -6,7 +6,7 @@
 <div>
     <h1>Create a new folder</h1>
     <section>
-        <form method="post" action="?do=newfolder">
+        <form method="post" action="?do=newfolder&amp;folder={{$folder}}">
             <p>
                 <label for="name">Name:</label>
                 <input type="text" name="name" id="name" size="25" maxlength="45" required/>

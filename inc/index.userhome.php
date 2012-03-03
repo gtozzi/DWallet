@@ -25,3 +25,7 @@
 require 'common_user.php';
 
 $tplfile = 'userhome';
+
+// Gets folders & passwords in the current folder
+$smarty->assign('folders', $db->getFolders($folder));
+$smarty->assign('passwords', $db->getPasswords($folder));
