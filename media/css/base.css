@@ -1,0 +1,23 @@
+
+body {
+    background: #222;
+    color: #e3d7bf;
+    font: 300 16px/1.5 "Helvetica Neue",sans-serif;
+}
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+a:hover {
+    font-weight: bold;
+}
+.highlight {
+    color: #e16734;
+}
+.error {
+    color: red;
+    text-shadow: white 0px 0px 1px;
+}
+form header {
+    background: #1a1a1a;
+}

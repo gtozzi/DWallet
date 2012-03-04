@@ -2,13 +2,21 @@
 {{block name='head' append}}
     <link rel="stylesheet" type="text/css" href="media/css/userhome.css"/>
 {{/block}}
-{{block name='nav'}}
-    <ul>
-        <li><button type="button" onclick="window.location='?do=newfolder&folder={{$folder}}'">New folder</button></li>
-        <li><button type="button" onclick="window.location='?do=modpassword&folder={{$folder}}'">New password</button></li>
-    </ul>
-{{/block}}
 {{block name='content'}}
+<nav>
+    <ul>
+        <li>
+            <button type="button" onclick="window.location='?do=newfolder&folder={{$folder}}'">
+                <img alt="new Folder" src="media/icons/folder_add.png"/>
+            </button>
+        </li>
+        <li>
+            <button type="button" onclick="window.location='?do=modpassword&folder={{$folder}}'">
+                <img alt="new Password" src="media/icons/key_add.png"/>
+            </button>
+        </li>
+    </ul>
+</nav>
 {{foreach $folders as $f}}
     <article>
         <img alt="folder" src="media/icons/folder.png"/>

@@ -1,0 +1,15 @@
+
+body {
+    text-align: center;
+}
+
+header#mainhead {
+    background: #232927;
+}
+header#loginheader {
+}
+img#logo {
+    height: 90px;
+    margin: 0 15px 0 0;
+    vertical-align: middle;
+}

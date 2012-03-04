@@ -3,13 +3,16 @@
     <link rel="stylesheet" type="text/css" href="media/css/userbase.css"/>
 {{/block}}
 {{block name='body'}}
-<nav>
+<header>
     <ul>
-        <li>{{$userinfo['email']}}</li>
+        <li class="highlight">{{$userinfo['email']}}</li>
         <li><a href="?do=logout">Logout</a></li>
     </ul>
+</header>
+<nav>
     <ul>
-        <li>Path:
+        {{block name='nav'}}{{/block}}
+        <li><i>Path:</i>
             {{strip}}
                 <a href="?do=userhome">root</a>
                 {{foreach $path as $p}}
@@ -25,7 +28,6 @@
             {{/strip}}
         </li>
     </ul>
-    {{block name='nav'}}{{/block}}
 </nav>
 {{block name='content'}}
 {{/block}}

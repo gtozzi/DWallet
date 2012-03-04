@@ -1,0 +1,15 @@
+
+header {
+    width: 100%;
+}
+header li, nav li {
+    display: table-cell;
+    padding-right: 5px;
+}
+label {
+    display: block;
+}
+p {
+    margin-top: 0px;
+    margin-bottom: 3px;
+}
